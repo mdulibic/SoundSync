@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">CineSync</string>
+    <string name="app_name">SoundSync</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_favourites">Favourites</string>
+    <string name="title_explore">Explore</string>
+    <string name="title_profile">Profile</string>
+    <string name="start_exploring">Start exploring</string>
+    <string name="explore_your_favorite_music">Explore your favorite music</string>
 </resources>
