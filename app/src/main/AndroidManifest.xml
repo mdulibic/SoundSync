@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
+
     <application
         android:name=".SoundSyncApp"
         android:allowBackup="true"
@@ -16,6 +17,7 @@
         android:roundIcon="@mipmap/ic_app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SoundSync"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name="fer.drumre.soundsync.MainActivity"

@@ -28,6 +28,7 @@ import fer.drumre.soundsync.R
 @Composable
 fun HeaderRow(
     initial: String?,
+    onInitialClick: (() -> Unit),
     onSearchClick: (() -> Unit)? = null,
 ) {
     Row(
@@ -52,26 +53,38 @@ fun HeaderRow(
         Image(
             painter = painterResource(id = R.drawable.ic_search),
             contentDescription = null,
-            modifier = Modifier.size(24.dp).clickable {
-                if (onSearchClick != null) {
-                    onSearchClick()
-                }
-            },
+            modifier = Modifier
+                .size(24.dp)
+                .clickable {
+                    if (onSearchClick != null) {
+                        onSearchClick()
+                    }
+                },
         )
         Spacer(modifier = Modifier.width(16.dp))
-        NameInitialIcon(initial = initial)
+        NameInitialIcon(
+            initial = initial,
+            onInitialClick = onInitialClick,
+        )
     }
 }
 
 @Composable
-private fun NameInitialIcon(initial: String?, modifier: Modifier = Modifier) {
+private fun NameInitialIcon(
+    initial: String?,
+    onInitialClick: (() -> Unit),
+    modifier: Modifier = Modifier,
+) {
     Box(
         modifier = modifier
             .size(36.dp)
             .background(
                 shape = CircleShape,
                 color = AppSecondary,
-            ),
+            )
+            .clickable {
+                onInitialClick()
+            },
         contentAlignment = Alignment.Center,
     ) {
         Text(

@@ -40,7 +40,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
-            .baseUrl("https://localhost:8080")
+            .baseUrl("http://172.20.10.11:3000")
             .build()
     }
 

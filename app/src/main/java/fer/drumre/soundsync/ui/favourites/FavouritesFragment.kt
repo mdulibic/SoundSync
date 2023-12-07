@@ -34,6 +34,9 @@ class FavouritesFragment : BaseFragment() {
             SoundSyncTheme {
                 FavouritesScreen(
                     favouritesViewModel = favouritesViewModel,
+                    onInitialClick = {
+                        favouritesViewModel.signOut()
+                    },
                 )
             }
         }

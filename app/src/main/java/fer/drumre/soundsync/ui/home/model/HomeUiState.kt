@@ -1,5 +1,6 @@
 package fer.drumre.soundsync.ui.home.model
 
 data class HomeUiState(
-    val id: String,
+    val artistsUiState: ArtistsByGenreUiState,
+    val genresUiState: GenresUiState,
 )

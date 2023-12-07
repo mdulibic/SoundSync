@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(private val api: SoundSyncApi) : UserRepository {
     override suspend fun saveUser(userInfo: UserInfo) {
-        //api.saveUser(userInfo = userInfo)
+        api.saveUser(userInfo = userInfo)
     }
 }

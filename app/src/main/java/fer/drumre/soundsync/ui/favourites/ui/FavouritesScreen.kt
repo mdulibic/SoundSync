@@ -13,6 +13,7 @@ import fer.drumre.soundsync.ui.view.HeaderRow
 @Composable
 fun FavouritesScreen(
     favouritesViewModel: FavouritesViewModel,
+    onInitialClick: () -> Unit,
 ) {
     // val uiState by favouritesViewModel.uiState.collectAsState()
 
@@ -22,6 +23,9 @@ fun FavouritesScreen(
             .background(AppPrimary),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        HeaderRow(initial = favouritesViewModel.initial)
+        HeaderRow(
+            initial = favouritesViewModel.initial,
+            onInitialClick = onInitialClick,
+        )
     }
 }

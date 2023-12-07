@@ -32,7 +32,12 @@ class ExploreFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.composeView.setContent {
             SoundSyncTheme {
-                ExploreScreen(exploreViewModel = exploreViewModel)
+                ExploreScreen(
+                    exploreViewModel = exploreViewModel,
+                    onInitialClick = {
+                        exploreViewModel.signOut()
+                    },
+                )
             }
         }
     }

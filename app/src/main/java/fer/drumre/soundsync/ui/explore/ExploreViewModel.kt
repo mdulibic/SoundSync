@@ -17,4 +17,9 @@ class ExploreViewModel @Inject constructor(
     val uiState: StateFlow<LoginUiState?> = _uiState
 
     val initial: String? = sessionManager.userName?.get(0).toString()
+
+    fun signOut() {
+        sessionManager.isLoggedIn = false
+        sessionManager.userName = null
+    }
 }

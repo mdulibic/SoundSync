@@ -13,6 +13,7 @@ import fer.drumre.soundsync.ui.view.HeaderRow
 @Composable
 fun ExploreScreen(
     exploreViewModel: ExploreViewModel,
+    onInitialClick: () -> Unit
 ) {
     // val uiState by favouritesViewModel.uiState.collectAsState()
 
@@ -22,6 +23,9 @@ fun ExploreScreen(
             .background(AppPrimary),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        HeaderRow(initial = exploreViewModel.initial)
+        HeaderRow(
+            initial = exploreViewModel.initial,
+            onInitialClick = onInitialClick
+        )
     }
 }
