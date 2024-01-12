@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -31,6 +32,10 @@ class HomeFragment : BaseFragment() {
     // Create the GoogleSignInClient
     private val googleSignInClient: GoogleSignInClient by lazy {
         GoogleSignIn.getClient(requireActivity(), gso)
+    }
+
+    private val logoutFb = {
+        LoginManager.getInstance().logOut()
     }
 
     override fun onCreateView(
@@ -68,6 +73,7 @@ class HomeFragment : BaseFragment() {
                 // You might want to notify the user or log the error
             }
         }
+        logoutFb()
     }
 
     override fun onDestroyView() {

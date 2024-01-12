@@ -97,6 +97,10 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling:$compose_version")
     implementation("io.coil-kt:coil:1.3.1")
     implementation("io.coil-kt:coil-compose:1.3.1")
+    implementation("com.airbnb.android:lottie-compose:6.0.1")
+
+    // FB SDK
+    implementation("com.facebook.android:facebook-android-sdk:15.1.0")
 
     implementation("com.google.android.gms:play-services-auth:20.0.0")
 }

@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.facebook.CallbackManager
+import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -21,7 +24,9 @@ import fer.drumre.soundsync.MainActivity
 import fer.drumre.soundsync.core.BaseFragment
 import fer.drumre.soundsync.data.model.UserInfo
 import fer.drumre.soundsync.databinding.FragmentLoginBinding
+import fer.drumre.soundsync.ui.login.model.LoginSourceType
 import fer.drumre.soundsync.ui.login.ui.LoginScreen
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -67,15 +72,34 @@ class LoginFragment : BaseFragment() {
             SoundSyncTheme {
                 LoginScreen(
                     loginViewModel = loginViewModel,
-                    onCtaClick = { signInWithGoogle() },
+                    onCtaClick = { onCtaClicked(it) },
                 )
             }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            loginViewModel.navigateToHome.collect {
+                navigateToHome()
+            }
+        }
+    }
+
+    private fun onCtaClicked(loginType: LoginSourceType) {
+        when (loginType) {
+            LoginSourceType.FB -> signInWithFb()
+            LoginSourceType.GOOGLE -> signInWithGoogle()
         }
     }
 
     private fun signInWithGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         startForResult.launch(signInIntent)
+    }
+
+    private val signInWithFb = {
+        LoginManager.getInstance()
+            .logIn(requireActivity(), CallbackManager.Factory.create(), listOf())
+        loginViewModel.checkFbProfile()
     }
 
     private fun handleSignInResult(result: GoogleSignInResult) {

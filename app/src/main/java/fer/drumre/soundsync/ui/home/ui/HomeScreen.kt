@@ -37,9 +37,7 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppPrimary)
-            .verticalScroll(scrollState),
-        horizontalAlignment = Alignment.CenterHorizontally,
+            .background(AppPrimary),
     ) {
         HeaderRow(
             initial = homeViewModel.initial,
@@ -47,9 +45,17 @@ fun HomeScreen(
         )
         uiState?.let {
             GenresRow(genresUiState = it.genresUiState)
-            ArtistsByGenreListRow(artists = it.artistsUiState.rockArtists)
-        } ?: run {
-            LoadingIndicator()
+        }
+        Column(
+            modifier = Modifier
+                .verticalScroll(scrollState),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            uiState?.let {
+                ArtistsByGenreListRow(artists = it.artistsUiState.rockArtists)
+            } ?: run {
+                LoadingIndicator()
+            }
         }
     }
 }

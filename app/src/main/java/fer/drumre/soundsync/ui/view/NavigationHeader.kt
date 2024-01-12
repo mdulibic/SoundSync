@@ -27,12 +27,13 @@ import fer.drumre.soundsync.R
 
 @Composable
 fun HeaderRow(
+    modifier: Modifier = Modifier,
     initial: String?,
     onInitialClick: (() -> Unit),
     onSearchClick: (() -> Unit)? = null,
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(8.dp)
             .height(56.dp),
