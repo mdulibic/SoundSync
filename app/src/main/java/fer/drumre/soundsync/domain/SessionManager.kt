@@ -11,6 +11,7 @@ class SessionManager @Inject constructor(@ApplicationContext private val appCont
         private const val LOGGED_IN = "logged_in"
         private const val USER_NAME = "user_name"
         private const val USER_ID = "user_id"
+        private const val COUNTRY = "country"
     }
 
     private val appPreferences: SharedPreferences by lazy {
@@ -33,5 +34,11 @@ class SessionManager @Inject constructor(@ApplicationContext private val appCont
         get() = appPreferences.getString(USER_ID, null)
         set(value) {
             appPreferences.edit().putString(USER_ID, value).apply()
+        }
+
+    var country: String?
+        get() = appPreferences.getString(COUNTRY, null)
+        set(value) {
+            appPreferences.edit().putString(COUNTRY, value).apply()
         }
 }

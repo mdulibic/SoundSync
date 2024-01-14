@@ -38,7 +38,10 @@ class MusicRepositoryImpl @Inject constructor(private val api: SoundSyncApi) : M
         }
     }
 
-    override suspend fun manageFavourites(userId: String, favourite: Favourite): Flow<List<ApiFavourite>> = flow {
+    override suspend fun manageFavourites(
+        userId: String,
+        favourite: Favourite,
+    ): Flow<List<ApiFavourite>> = flow {
         try {
             emit(api.manageFavourite(userId, favourite))
         } catch (e: Exception) {
@@ -51,6 +54,14 @@ class MusicRepositoryImpl @Inject constructor(private val api: SoundSyncApi) : M
             emit(api.fetchTop50Tracks())
         } catch (e: Exception) {
             handleException(e, "fetchTop50Tracks")
+        }
+    }
+
+    override fun getGeoTopTracks(country: String): Flow<List<ApiTrack>> = flow {
+        try {
+            emit(api.getGeoTopTracks(country))
+        } catch (e: Exception) {
+            handleException(e, "getGeoTopTracks")
         }
     }
 

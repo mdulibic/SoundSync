@@ -33,4 +33,14 @@ interface SoundSyncApi {
 
     @GET("/music/top50")
     suspend fun fetchTop50Tracks(): List<ApiTrack>
+
+    @GET("/music/geoTopTracks/{country}")
+    suspend fun getGeoTopTracks(@Path("country") country: String): List<ApiTrack>
+
+    @GET("/music/{userId}/recommendations_favorites")
+    suspend fun getRecommendationsFavorites(@Path("userId") userId: String): Map<String, List<ApiTrack>>
+
+    @GET("/music/{userId}/recommendations_followees")
+    suspend fun getRecommendationsFollowees(@Path("userId") userId: String): Map<String, List<ApiFavourite>>
+
 }

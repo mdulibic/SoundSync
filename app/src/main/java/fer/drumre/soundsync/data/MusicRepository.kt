@@ -17,4 +17,6 @@ interface MusicRepository {
     suspend fun manageFavourites(userId: String, favourite: Favourite): Flow<List<ApiFavourite>>
 
     fun fetchTop50Tracks(): Flow<List<ApiTrack>>
+
+    fun getGeoTopTracks(country: String): Flow<List<ApiTrack>>
 }
