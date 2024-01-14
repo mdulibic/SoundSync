@@ -6,14 +6,17 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import fer.drumre.soundsync.data.model.ApiArtist
 import fer.drumre.soundsync.data.model.ApiFavourite
 import fer.drumre.soundsync.data.model.ApiGenre
+import fer.drumre.soundsync.data.model.ApiTrack
 import fer.drumre.soundsync.domain.SessionManager
 import fer.drumre.soundsync.domain.usecase.GetArtistsUseCase
 import fer.drumre.soundsync.domain.usecase.GetFavouritesUseCase
 import fer.drumre.soundsync.domain.usecase.GetGenresUseCase
+import fer.drumre.soundsync.domain.usecase.GetTop50TracksUseCase
 import fer.drumre.soundsync.domain.usecase.ManageFavouritesUseCase
+import fer.drumre.soundsync.ui.favourites.model.FavouritesUiState
 import fer.drumre.soundsync.ui.home.mapper.HomeMapper
 import fer.drumre.soundsync.ui.home.model.Favourite
-import fer.drumre.soundsync.ui.favourites.model.FavouritesUiState
+import fer.drumre.soundsync.ui.home.model.HomeInput
 import fer.drumre.soundsync.ui.home.model.HomeUiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,6 +35,7 @@ class HomeViewModel @Inject constructor(
     private val getGenresUseCase: GetGenresUseCase,
     private val getFavouritesUseCase: GetFavouritesUseCase,
     private val manageFavouritesUseCase: ManageFavouritesUseCase,
+    private val getTop50TracksUseCase: GetTop50TracksUseCase,
     private val homeMapper: HomeMapper,
 ) : ViewModel() {
 
@@ -45,6 +49,8 @@ class HomeViewModel @Inject constructor(
     private var genresList: List<ApiGenre>? = null
 
     private var favouritesList: List<ApiFavourite>? = null
+
+    private var top50TracksList: List<ApiTrack>? = null
 
     init {
         getHomeData()
@@ -61,15 +67,18 @@ class HomeViewModel @Inject constructor(
                 getArtistsUseCase(),
                 getGenresUseCase(),
                 getFavouritesUseCase(sessionManager.userId ?: ""),
-                ::Triple,
-            ).map { (artists, genres, favourites) ->
+                getTop50TracksUseCase(),
+                ::HomeInput,
+            ).map { (artists, genres, favourites, top50Tracks) ->
                 artistsList = artists
                 genresList = genres
                 favouritesList = favourites
+                top50TracksList = top50Tracks
                 homeMapper.mapToUiState(
                     artists = artists,
                     genres = genres,
                     favourites = favourites,
+                    top50Tracks = top50Tracks,
                 )
             }.collectLatest {
                 _uiState.value = it
@@ -83,6 +92,7 @@ class HomeViewModel @Inject constructor(
             genres = genresList ?: emptyList(),
             favourites = favouritesList ?: emptyList(),
             updatedStartGenreName = genreName,
+            top50Tracks = top50TracksList ?: emptyList(),
         )
         _uiState.value = uiState
     }
@@ -93,6 +103,7 @@ class HomeViewModel @Inject constructor(
             genres = genresList ?: emptyList(),
             favourites = favouritesList ?: emptyList(),
             updatedFeaturedArtistName = artistName,
+            top50Tracks = top50TracksList ?: emptyList(),
         )
         _uiState.value = uiState
     }
@@ -116,5 +127,9 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun onResume() {
+        getHomeData()
     }
 }

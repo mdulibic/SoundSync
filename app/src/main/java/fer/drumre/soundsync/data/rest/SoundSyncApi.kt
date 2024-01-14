@@ -3,6 +3,7 @@ package fer.drumre.soundsync.data.rest
 import fer.drumre.soundsync.data.model.ApiArtist
 import fer.drumre.soundsync.data.model.ApiFavourite
 import fer.drumre.soundsync.data.model.ApiGenre
+import fer.drumre.soundsync.data.model.ApiTrack
 import fer.drumre.soundsync.data.model.SaveUserRequest
 import fer.drumre.soundsync.data.model.SaveUserResponse
 import fer.drumre.soundsync.ui.home.model.Favourite
@@ -29,4 +30,7 @@ interface SoundSyncApi {
         @Path("userId") userId: String,
         @Body favourite: Favourite,
     ): List<ApiFavourite>
+
+    @GET("/music/top50")
+    suspend fun fetchTop50Tracks(): List<ApiTrack>
 }

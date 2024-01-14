@@ -4,6 +4,7 @@ import fer.drumre.soundsync.data.MusicRepository
 import fer.drumre.soundsync.data.model.ApiArtist
 import fer.drumre.soundsync.data.model.ApiFavourite
 import fer.drumre.soundsync.data.model.ApiGenre
+import fer.drumre.soundsync.data.model.ApiTrack
 import fer.drumre.soundsync.data.rest.SoundSyncApi
 import fer.drumre.soundsync.ui.home.model.Favourite
 import kotlinx.coroutines.flow.Flow
@@ -42,6 +43,14 @@ class MusicRepositoryImpl @Inject constructor(private val api: SoundSyncApi) : M
             emit(api.manageFavourite(userId, favourite))
         } catch (e: Exception) {
             handleException(e, "manageFavourites")
+        }
+    }
+
+    override fun fetchTop50Tracks(): Flow<List<ApiTrack>> = flow {
+        try {
+            emit(api.fetchTop50Tracks())
+        } catch (e: Exception) {
+            handleException(e, "fetchTop50Tracks")
         }
     }
 

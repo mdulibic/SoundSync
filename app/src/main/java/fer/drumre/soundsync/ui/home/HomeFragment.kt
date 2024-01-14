@@ -28,7 +28,6 @@ class HomeFragment : BaseFragment() {
         .requestEmail()
         .build()
 
-    // Create the GoogleSignInClient
     private val googleSignInClient: GoogleSignInClient by lazy {
         GoogleSignIn.getClient(requireActivity(), gso)
     }
@@ -73,6 +72,11 @@ class HomeFragment : BaseFragment() {
             }
         }
         logoutFb()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.onResume()
     }
 
     override fun onDestroyView() {

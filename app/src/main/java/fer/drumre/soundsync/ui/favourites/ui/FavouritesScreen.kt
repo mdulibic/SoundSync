@@ -52,7 +52,7 @@ fun FavouritesScreen(
             style = MaterialTheme.typography.h5,
         )
         Divider(
-            modifier = Modifier.height(4.dp).width(100.dp).background(Color.White).padding(4.dp),
+            modifier = Modifier.height(4.dp).width(100.dp).background(Color.White).padding(8.dp),
         )
         uiState?.let {
             if(it.favourites.isEmpty()) {

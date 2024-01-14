@@ -4,12 +4,13 @@ import fer.drumre.soundsync.data.model.ApiArtist
 import fer.drumre.soundsync.data.model.ApiFavourite
 import fer.drumre.soundsync.data.model.ApiGenre
 import fer.drumre.soundsync.data.model.ApiTrack
+import fer.drumre.soundsync.ui.favourites.model.FavouritesUiState
 import fer.drumre.soundsync.ui.home.model.ArtistUiState
 import fer.drumre.soundsync.ui.home.model.Favourite
-import fer.drumre.soundsync.ui.favourites.model.FavouritesUiState
 import fer.drumre.soundsync.ui.home.model.GenreUiState
 import fer.drumre.soundsync.ui.home.model.HomeUiState
 import fer.drumre.soundsync.ui.home.model.TagsToExploreUiState
+import fer.drumre.soundsync.ui.home.model.Top50TracksUiState
 import fer.drumre.soundsync.ui.home.model.TrackUiState
 import timber.log.Timber
 import javax.inject.Inject
@@ -23,6 +24,7 @@ class HomeMapper @Inject constructor() {
         artists: List<ApiArtist>,
         genres: List<ApiGenre>,
         favourites: List<ApiFavourite>,
+        top50Tracks: List<ApiTrack>,
         updatedStartGenreName: String? = null,
         updatedFeaturedArtistName: String? = null,
     ): HomeUiState {
@@ -47,8 +49,19 @@ class HomeMapper @Inject constructor() {
         return HomeUiState(
             tagsToExploreUiState = tagsToExploreUiState,
             favouritesUiState = favouritesUiState,
+            top50TracksUiState = Top50TracksUiState(
+                tracksList = top50Tracks.map {
+                    it.mapToTrackUiState()
+                },
+            ),
         )
     }
+
+    private fun ApiTrack.mapToTrackUiState(): TrackUiState =
+        TrackUiState(
+            artistName = artist.orEmpty(),
+            track = this,
+        )
 
     private fun mapToTagsToExploreUiState(
         artists: List<ApiArtist>,

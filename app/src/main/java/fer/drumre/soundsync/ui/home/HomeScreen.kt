@@ -1,6 +1,7 @@
 package fer.drumre.soundsync.ui.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fer.digobr.kidslingo.theme.AppPrimary
 import fer.drumre.soundsync.ui.home.ui.viewholders.TagsToExplore
+import fer.drumre.soundsync.ui.home.ui.viewholders.Top50Tracks
 import fer.drumre.soundsync.ui.view.HeaderRow
 import fer.drumre.soundsync.ui.view.LoadingIndicator
 
@@ -37,6 +39,7 @@ fun HomeScreen(
         LazyColumn(
             modifier = Modifier.padding(16.dp),
             state = scrollState,
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             uiState?.let { homeUiState ->
                 item {
@@ -49,6 +52,15 @@ fun HomeScreen(
                         onArtistClick = {
                             homeViewModel.onArtistClick(it)
                         },
+                        onFavouriteClick = {
+                            homeViewModel.onFavouriteClick(it)
+                        },
+                    )
+                }
+                item {
+                    Top50Tracks(
+                        top50TracksUiState = homeUiState.top50TracksUiState,
+                        favouritesUiState = homeUiState.favouritesUiState,
                         onFavouriteClick = {
                             homeViewModel.onFavouriteClick(it)
                         },

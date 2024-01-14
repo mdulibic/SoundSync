@@ -37,7 +37,7 @@ class FavouritesViewModel @Inject constructor(
         getFavourites()
     }
 
-    private fun getFavourites() {
+    fun getFavourites() {
         viewModelScope.launch {
             getFavouritesUseCase(sessionManager.userId ?: "").collectLatest {
                 _uiState.value =
