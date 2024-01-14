@@ -1,19 +1,53 @@
 package fer.drumre.soundsync.domain
 
 import fer.drumre.soundsync.data.MusicRepository
-import fer.drumre.soundsync.data.model.Artist
-import fer.drumre.soundsync.data.model.Genre
+import fer.drumre.soundsync.data.model.ApiArtist
+import fer.drumre.soundsync.data.model.ApiFavourite
+import fer.drumre.soundsync.data.model.ApiGenre
 import fer.drumre.soundsync.data.rest.SoundSyncApi
+import fer.drumre.soundsync.ui.home.model.Favourite
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import timber.log.Timber
 import javax.inject.Inject
 
 class MusicRepositoryImpl @Inject constructor(private val api: SoundSyncApi) : MusicRepository {
-    override fun fetchGenres(): Flow<List<Genre>> = flow {
-        emit(api.fetchGenres())
+
+    override fun fetchGenres(): Flow<List<ApiGenre>> = flow {
+        try {
+            emit(api.fetchGenres())
+        } catch (e: Exception) {
+            handleException(e, "fetchGenres")
+        }
     }
 
-    override fun fetchArtists(): Flow<List<Artist>> = flow {
-        emit(api.fetchArtists())
+    override fun fetchArtists(): Flow<List<ApiArtist>> = flow {
+        try {
+            emit(api.fetchArtists())
+        } catch (e: Exception) {
+            handleException(e, "fetchArtists")
+        }
+    }
+
+    override fun fetchFavourites(userId: String): Flow<List<ApiFavourite>> = flow {
+        try {
+            emit(api.fetchFavourites(userId))
+        } catch (e: Exception) {
+            handleException(e, "fetchFavourites")
+        }
+    }
+
+    override suspend fun manageFavourites(userId: String, favourite: Favourite): Flow<List<ApiFavourite>> = flow {
+        try {
+            emit(api.manageFavourite(userId, favourite))
+        } catch (e: Exception) {
+            handleException(e, "manageFavourites")
+        }
+    }
+
+    private fun handleException(exception: Exception, method: String) {
+        val errorMessage = exception.message ?: "Unknown error"
+        val causeMessage = exception.cause?.message ?: "Unknown cause"
+        Timber.e("SoundSyncApi - $method: $errorMessage. Cause: $causeMessage")
     }
 }

@@ -2,7 +2,8 @@ package fer.drumre.soundsync.data.model
 
 import com.squareup.moshi.Json
 
-data class UserInfo(
+data class ApiUser(
+    @Json(name = "_id") val id: String,
     @Json(name = "name")
     val name: String,
     @Json(name = "surname")

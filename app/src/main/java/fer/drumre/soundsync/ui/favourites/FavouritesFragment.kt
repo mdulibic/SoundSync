@@ -37,6 +37,9 @@ class FavouritesFragment : BaseFragment() {
                     onInitialClick = {
                         favouritesViewModel.signOut()
                     },
+                    onFavouriteClick = {
+                        favouritesViewModel.onFavouriteClick(it)
+                    },
                 )
             }
         }

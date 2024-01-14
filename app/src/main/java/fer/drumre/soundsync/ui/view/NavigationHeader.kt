@@ -30,7 +30,6 @@ fun HeaderRow(
     modifier: Modifier = Modifier,
     initial: String?,
     onInitialClick: (() -> Unit),
-    onSearchClick: (() -> Unit)? = null,
 ) {
     Row(
         modifier = modifier
@@ -50,18 +49,6 @@ fun HeaderRow(
                 modifier = Modifier.size(40.dp),
             )
         }
-
-        Image(
-            painter = painterResource(id = R.drawable.ic_search),
-            contentDescription = null,
-            modifier = Modifier
-                .size(24.dp)
-                .clickable {
-                    if (onSearchClick != null) {
-                        onSearchClick()
-                    }
-                },
-        )
         Spacer(modifier = Modifier.width(16.dp))
         NameInitialIcon(
             initial = initial,

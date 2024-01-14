@@ -1,6 +1,8 @@
 package fer.drumre.soundsync.ui.home.model
 
+import fer.drumre.soundsync.ui.favourites.model.FavouritesUiState
+
 data class HomeUiState(
-    val artistsUiState: ArtistsByGenreUiState,
-    val genresUiState: GenresUiState,
+    val tagsToExploreUiState: TagsToExploreUiState,
+    val favouritesUiState: FavouritesUiState,
 )

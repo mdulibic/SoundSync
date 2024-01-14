@@ -4,9 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.facebook.Profile
 import com.facebook.ProfileTracker
-import com.google.errorprone.annotations.Immutable
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fer.drumre.soundsync.data.model.UserInfo
+import fer.drumre.soundsync.data.model.SaveUserRequest
 import fer.drumre.soundsync.domain.SessionManager
 import fer.drumre.soundsync.domain.usecase.SaveUserUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -30,7 +29,7 @@ class LoginViewModel @Inject constructor(
                 Timber.d("Current profile ${currentProfile?.name}")
                 if (currentProfile != null) {
                     saveUser(
-                        userInfo = UserInfo(
+                        userInfo = SaveUserRequest(
                             name = currentProfile.firstName.toString(),
                             surname = currentProfile.lastName.toString(),
                             email = "${currentProfile.firstName?.lowercase()}.${currentProfile.lastName?.lowercase()}@gmail.com",
@@ -44,7 +43,7 @@ class LoginViewModel @Inject constructor(
     fun checkFbProfile() {
         Profile.getCurrentProfile()?.apply {
             saveUser(
-                userInfo = UserInfo(
+                userInfo = SaveUserRequest(
                     name = firstName.toString(),
                     surname = lastName.toString(),
                     email = "${firstName?.lowercase()}.${lastName?.lowercase()}@gmail.com",
@@ -60,11 +59,12 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun saveUser(userInfo: UserInfo) {
+    fun saveUser(userInfo: SaveUserRequest) {
         sessionManager.isLoggedIn = true
         sessionManager.userName = userInfo.name
         viewModelScope.launch {
-            saveUserUseCase(userInfo = userInfo)
+            val response = saveUserUseCase(userInfo = userInfo)
+            sessionManager.userId = response.user.id
         }
     }
 

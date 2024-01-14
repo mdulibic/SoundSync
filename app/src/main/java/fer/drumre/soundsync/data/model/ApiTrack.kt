@@ -1,6 +1,6 @@
 package fer.drumre.soundsync.data.model
 
-data class Track(
+data class ApiTrack(
     val name: String,
     val imageUrl: String,
 )

@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import fer.digobr.kidslingo.theme.SoundSyncTheme
 import fer.drumre.soundsync.MainActivity
 import fer.drumre.soundsync.core.BaseFragment
-import fer.drumre.soundsync.data.model.UserInfo
+import fer.drumre.soundsync.data.model.SaveUserRequest
 import fer.drumre.soundsync.databinding.FragmentLoginBinding
 import fer.drumre.soundsync.ui.login.model.LoginSourceType
 import fer.drumre.soundsync.ui.login.ui.LoginScreen
@@ -76,12 +76,6 @@ class LoginFragment : BaseFragment() {
                 )
             }
         }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            loginViewModel.navigateToHome.collect {
-                navigateToHome()
-            }
-        }
     }
 
     private fun onCtaClicked(loginType: LoginSourceType) {
@@ -100,6 +94,12 @@ class LoginFragment : BaseFragment() {
         LoginManager.getInstance()
             .logIn(requireActivity(), CallbackManager.Factory.create(), listOf())
         loginViewModel.checkFbProfile()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            loginViewModel.navigateToHome.collect {
+                navigateToHome()
+            }
+        }
     }
 
     private fun handleSignInResult(result: GoogleSignInResult) {
@@ -114,13 +114,13 @@ class LoginFragment : BaseFragment() {
             snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
                 override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                     loginViewModel.saveUser(
-                        userInfo = UserInfo(
+                        userInfo = SaveUserRequest(
                             name = account?.displayName ?: "",
                             surname = account?.familyName ?: "",
                             email = account?.email ?: "",
                         ),
                     )
-                    navigateToHome()
+                   // navigateToHome()
                 }
             })
         } else {

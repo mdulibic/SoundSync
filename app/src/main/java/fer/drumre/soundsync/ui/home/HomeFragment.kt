@@ -14,7 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import fer.digobr.kidslingo.theme.SoundSyncTheme
 import fer.drumre.soundsync.core.BaseFragment
 import fer.drumre.soundsync.databinding.FragmentHomeBinding
-import fer.drumre.soundsync.ui.home.ui.HomeScreen
 import fer.drumre.soundsync.ui.login.LoginActivity
 
 @AndroidEntryPoint
