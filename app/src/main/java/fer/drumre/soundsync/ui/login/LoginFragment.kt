@@ -111,7 +111,7 @@ class LoginFragment : BaseFragment() {
                 override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                     loginViewModel.saveUser(
                         userInfo = SaveUserRequest(
-                            name = account?.displayName ?: "",
+                            name = account?.givenName ?: "",
                             surname = account?.familyName ?: "",
                             email = account?.email ?: "",
                         ),

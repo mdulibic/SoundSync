@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -38,7 +39,7 @@ import fer.drumre.soundsync.ui.profile.ProfileViewModel
 @Composable
 fun ProfileScreen(
     profileViewModel: ProfileViewModel,
-    onCloseClick: () -> Unit
+    onCloseClick: () -> Unit,
 ) {
     val uiState by profileViewModel.uiState.collectAsState()
 
@@ -63,8 +64,21 @@ fun ProfileScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
             ) {
                 UserInfo(user = it.user)
-                FollowingList(followingList = it.followingList)
-                NonFollowingList(nonFollowingList = it.nonFollowingList)
+                ProfileFollowList(
+                    title = R.string.following,
+                    followingList = it.followingList,
+                    onFollowClick = {
+                        profileViewModel.followUser(userId = it)
+                    },
+                )
+                ProfileFollowList(
+                    title = R.string.suggested_for_you,
+                    isFollowersList = false,
+                    followingList = it.nonFollowingList,
+                    onFollowClick = {
+                        profileViewModel.followUser(userId = it)
+                    },
+                )
             }
             OutlinedButton(
                 shape = RoundedCornerShape(8.dp),
@@ -148,42 +162,27 @@ fun ProfileInfoRow(label: String, value: String) {
 }
 
 @Composable
-fun FollowingList(followingList: List<ApiUser>) {
+fun ProfileFollowList(
+    title: Int,
+    isFollowersList: Boolean = true,
+    followingList: List<ApiUser>,
+    onFollowClick: (String) -> Unit,
+) {
     Column(
         modifier = Modifier.padding(16.dp),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text(
-            text = stringResource(R.string.following),
+            text = stringResource(title).uppercase(),
             color = Color.White,
-            fontSize = 16.sp,
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.caption,
         )
         followingList.forEach { followingUser ->
-            Text(
-                text = "${followingUser.name} ${followingUser.surname}",
-                color = Color.White,
-                fontSize = 16.sp,
-            )
-        }
-    }
-}
-
-@Composable
-fun NonFollowingList(nonFollowingList: List<ApiUser>) {
-    Column(
-        modifier = Modifier.padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Text(
-            text = stringResource(R.string.non_following),
-            color = Color.White,
-            fontSize = 16.sp,
-        )
-        nonFollowingList.forEach { nonFollowingUser ->
-            Text(
-                text = "${nonFollowingUser.name} ${nonFollowingUser.surname}",
-                color = Color.White,
-                fontSize = 16.sp,
+            FollowerItem(
+                isFollowing = isFollowersList,
+                apiUser = followingUser,
+                onFollowClick = onFollowClick,
             )
         }
     }

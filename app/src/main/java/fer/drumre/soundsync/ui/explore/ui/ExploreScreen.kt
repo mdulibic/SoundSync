@@ -25,6 +25,7 @@ import fer.digobr.kidslingo.theme.AppSecondary
 import fer.drumre.soundsync.R
 import fer.drumre.soundsync.ui.explore.ExploreViewModel
 import fer.drumre.soundsync.ui.view.HeaderRow
+import fer.drumre.soundsync.ui.view.LoadingIndicator
 
 @Composable
 fun ExploreScreen(
@@ -77,6 +78,10 @@ fun ExploreScreen(
                             exploreViewModel.onFavouriteClick(it)
                         },
                     )
+                }
+            } ?: run {
+                item {
+                    LoadingIndicator()
                 }
             }
         }

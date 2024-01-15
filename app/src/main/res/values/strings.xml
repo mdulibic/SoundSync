@@ -23,7 +23,8 @@
     <string name="name">Name:</string>
     <string name="surname">Surname:</string>
     <string name="email">Email:</string>
-    <string name="following">Following:</string>
-    <string name="non_following">Non-Following:</string>
+    <string name="following">Following</string>
+    <string name="suggested_for_you">Suggested for you</string>
     <string name="log_out">Log out</string>
+    <string name="follow">Follow</string>
 </resources>

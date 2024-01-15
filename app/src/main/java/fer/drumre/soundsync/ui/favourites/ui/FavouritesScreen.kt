@@ -25,6 +25,7 @@ import fer.drumre.soundsync.R
 import fer.drumre.soundsync.ui.favourites.FavouritesViewModel
 import fer.drumre.soundsync.ui.home.model.Favourite
 import fer.drumre.soundsync.ui.view.HeaderRow
+import fer.drumre.soundsync.ui.view.LoadingIndicator
 
 @Composable
 fun FavouritesScreen(
@@ -75,6 +76,8 @@ fun FavouritesScreen(
                     onFavouriteClick = onFavouriteClick,
                 )
             }
+        } ?: run {
+            LoadingIndicator()
         }
     }
 }

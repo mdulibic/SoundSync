@@ -67,6 +67,7 @@ class ProfileViewModel @Inject constructor(
                     followeeId = userId,
                 ),
             )
+            getProfileData()
         }
     }
 

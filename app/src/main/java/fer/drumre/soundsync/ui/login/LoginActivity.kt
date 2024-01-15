@@ -22,10 +22,6 @@ class LoginActivity : AppCompatActivity() {
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        if (sessionManager.isLoggedIn) {
-            startMainActivity()
-        }
     }
 
     private fun startMainActivity() {
