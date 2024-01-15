@@ -55,5 +55,5 @@ interface SoundSyncApi {
     suspend fun followUser(@Body followRequest: FollowRequest)
 
     @GET("/music/{userId}/recommendations_followees")
-    suspend fun getRecommendationsFollowees(@Path("userId") userId: String): Map<String, List<ApiFavourite>>
+    suspend fun getRecommendationsFollowees(@Path("userId") userId: String): Map<String, List<ApiTrack>>
 }

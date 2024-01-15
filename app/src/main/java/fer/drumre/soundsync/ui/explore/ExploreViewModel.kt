@@ -6,7 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import fer.drumre.soundsync.domain.SessionManager
 import fer.drumre.soundsync.domain.usecase.GetFavouritesUseCase
 import fer.drumre.soundsync.domain.usecase.explore.GetGeoTopTracksUseCase
-import fer.drumre.soundsync.domain.usecase.explore.GetRecommendationsFavorites
+import fer.drumre.soundsync.domain.usecase.explore.GetRecommendationsFavoritesUseCase
+import fer.drumre.soundsync.domain.usecase.explore.GetRecommendationsFolloweesUseCase
 import fer.drumre.soundsync.domain.usecase.favourites.ManageFavouritesUseCase
 import fer.drumre.soundsync.ui.explore.mapper.ExploreMapper
 import fer.drumre.soundsync.ui.explore.model.ExploreInput
@@ -29,7 +30,8 @@ class ExploreViewModel @Inject constructor(
     private val getGeoTopTracksUseCase: GetGeoTopTracksUseCase,
     private val getFavouritesUseCase: GetFavouritesUseCase,
     private val manageFavouritesUseCase: ManageFavouritesUseCase,
-    private val getRecommendationsFavorites: GetRecommendationsFavorites,
+    private val getRecommendationsFavoritesUseCase: GetRecommendationsFavoritesUseCase,
+    private val getRecommendationsFolloweesUseCase: GetRecommendationsFolloweesUseCase,
     private val exploreMapper: ExploreMapper,
 ) : ViewModel() {
 
@@ -52,13 +54,15 @@ class ExploreViewModel @Inject constructor(
             combine(
                 getGeoTopTracksUseCase(country = sessionManager.country ?: "Croatia"),
                 getFavouritesUseCase(userId = sessionManager.userId ?: ""),
-                getRecommendationsFavorites(userId = sessionManager.userId ?: ""),
+                getRecommendationsFavoritesUseCase(userId = sessionManager.userId ?: ""),
+                getRecommendationsFolloweesUseCase(userId = sessionManager.userId ?: ""),
                 ::ExploreInput,
-            ).map { (geoTopTracks, favourites, recommendationsFavorites) ->
+            ).map { (geoTopTracks, favourites, recommendationsFavorites, recommendationsFollowees) ->
                 exploreMapper.mapToUiState(
                     favourites = favourites,
                     geoTopTracks = geoTopTracks,
                     recommendationsFavorites = recommendationsFavorites,
+                    recommendationsFollowees = recommendationsFollowees
                 )
             }.collectLatest {
                 _uiState.value = it

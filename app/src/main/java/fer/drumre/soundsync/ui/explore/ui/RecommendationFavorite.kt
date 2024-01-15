@@ -23,6 +23,7 @@ import fer.drumre.soundsync.ui.home.ui.TrackItem
 
 @Composable
 fun RecommendationFavorite(
+    subtitleRes: Int = R.string.because_you_liked,
     recommendation: Recommendation,
     favouritesUiState: FavouritesUiState,
     onFavouriteClick: (Favourite) -> Unit,
@@ -31,7 +32,7 @@ fun RecommendationFavorite(
         modifier = Modifier.padding(8.dp),
     ) {
         Text(
-            text = stringResource(R.string.because_you_liked).uppercase(),
+            text = stringResource(subtitleRes).uppercase(),
             color = Color.White,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.caption,

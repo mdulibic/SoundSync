@@ -65,13 +65,23 @@ class MusicRepositoryImpl @Inject constructor(private val api: SoundSyncApi) : M
         }
     }
 
-    override fun getRecommendationsFavorites(userId: String): Flow<Map<String, List<ApiTrack>>> = flow {
-        try {
-            emit(api.getRecommendationsFavorites(userId))
-        } catch (e: Exception) {
-            handleException(e, "getRecommendationsFavorites")
+    override fun getRecommendationsFavorites(userId: String): Flow<Map<String, List<ApiTrack>>> =
+        flow {
+            try {
+                emit(api.getRecommendationsFavorites(userId))
+            } catch (e: Exception) {
+                handleException(e, "getRecommendationsFavorites")
+            }
         }
-    }
+
+    override fun getRecommendationsFollowees(userId: String): Flow<Map<String, List<ApiTrack>>> =
+        flow {
+            try {
+                emit(api.getRecommendationsFollowees(userId = userId))
+            } catch (e: Exception) {
+                handleException(e, "getRecommendationsFollowees")
+            }
+        }
 
     private fun handleException(exception: Exception, method: String) {
         val errorMessage = exception.message ?: "Unknown error"

@@ -5,6 +5,7 @@ import fer.drumre.soundsync.data.model.ApiTrack
 import fer.drumre.soundsync.ui.explore.model.ExploreUiState
 import fer.drumre.soundsync.ui.explore.model.GeoTopTracksUiState
 import fer.drumre.soundsync.ui.explore.model.RecommendationsFavoritesUiState
+import fer.drumre.soundsync.ui.explore.model.RecommendationsFolloweesUiState
 import fer.drumre.soundsync.ui.favourites.model.FavouritesUiState
 import fer.drumre.soundsync.ui.home.model.Favourite
 import fer.drumre.soundsync.ui.home.model.TrackUiState
@@ -15,6 +16,7 @@ class ExploreMapper @Inject constructor() {
         favourites: List<ApiFavourite>,
         geoTopTracks: List<ApiTrack>,
         recommendationsFavorites: Map<String, List<ApiTrack>>,
+        recommendationsFollowees: Map<String, List<ApiTrack>>,
     ): ExploreUiState {
         val favouritesUiState = FavouritesUiState(
             favourites = favourites.map {
@@ -30,14 +32,19 @@ class ExploreMapper @Inject constructor() {
             },
         )
 
-        val recommendationsFavorites = RecommendationsFavoritesUiState(
+        val recommendationsFavoritesUiState = RecommendationsFavoritesUiState(
             recommendationsFavorites = recommendationsFavorites,
+        )
+
+        val recommendationsFolloweesUiState = RecommendationsFolloweesUiState(
+            recommendationsFollowees = recommendationsFollowees,
         )
 
         return ExploreUiState(
             favouritesUiState = favouritesUiState,
             geoTopTracksUiState = geoTopTracksUiState,
-            recommendationsFavorites = recommendationsFavorites,
+            recommendationsFavorites = recommendationsFavoritesUiState,
+            recommendationsFollowees = recommendationsFolloweesUiState,
         )
     }
 

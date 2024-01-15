@@ -79,6 +79,15 @@ fun ExploreScreen(
                         },
                     )
                 }
+                item {
+                    RecommendationsFollowees(
+                        recommendationsFolloweesUiState = it.recommendationsFollowees,
+                        favoritesUiState = it.favouritesUiState,
+                        onFavouriteClick = {
+                            exploreViewModel.onFavouriteClick(it)
+                        }
+                    )
+                }
             } ?: run {
                 item {
                     LoadingIndicator()

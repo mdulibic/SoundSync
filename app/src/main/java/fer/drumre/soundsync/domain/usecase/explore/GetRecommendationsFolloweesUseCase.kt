@@ -1,0 +1,12 @@
+package fer.drumre.soundsync.domain.usecase.explore
+
+import fer.drumre.soundsync.data.MusicRepository
+import fer.drumre.soundsync.data.model.ApiTrack
+import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+
+class GetRecommendationsFolloweesUseCase @Inject constructor(private val musicRepository: MusicRepository) {
+    operator fun invoke(userId: String): Flow<Map<String, List<ApiTrack>>> {
+        return musicRepository.getRecommendationsFollowees(userId = userId)
+    }
+}

@@ -14,11 +14,13 @@
     <string name="based_on_your_location">Based on your location</string>
     <string name="explore">Explore</string>
     <string name="based_on_your_favourites">Based on your favourites</string>
+    <string name="based_on_people_you_follow">Based on people you follow</string>
     <string name="tags_to_explore">Tags to Explore</string>
     <string name="tag">"Tag: "</string>
     <string name="featured_artist">"Featured artist:"</string>
     <string name="no_favourites">No favourites</string>
     <string name="because_you_liked">Because you liked</string>
+    <string name="because_your_connection">Because your connection liked</string>
     <string name="top_chart">Top chart</string>
     <string name="name">Name:</string>
     <string name="surname">Surname:</string>

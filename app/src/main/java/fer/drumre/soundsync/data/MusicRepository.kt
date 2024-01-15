@@ -6,6 +6,7 @@ import fer.drumre.soundsync.data.model.ApiFavourite
 import fer.drumre.soundsync.data.model.ApiTrack
 import fer.drumre.soundsync.ui.home.model.Favourite
 import kotlinx.coroutines.flow.Flow
+import retrofit2.http.Path
 
 interface MusicRepository {
     fun fetchGenres(): Flow<List<ApiGenre>>
@@ -21,4 +22,6 @@ interface MusicRepository {
     fun getGeoTopTracks(country: String): Flow<List<ApiTrack>>
 
     fun getRecommendationsFavorites(userId: String): Flow<Map<String, List<ApiTrack>>>
+
+    fun getRecommendationsFollowees(@Path("userId") userId: String): Flow<Map<String, List<ApiTrack>>>
 }

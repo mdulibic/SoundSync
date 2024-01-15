@@ -6,5 +6,6 @@ import fer.drumre.soundsync.data.model.ApiTrack
 data class ExploreInput(
     val geoTopTracks: List<ApiTrack>,
     val favourites: List<ApiFavourite>,
-    val recommendationsFavorites: Map<String, List<ApiTrack>>
+    val recommendationsFavorites: Map<String, List<ApiTrack>>,
+    val recommendationsFollowees: Map<String, List<ApiTrack>>,
 )
