@@ -16,11 +16,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import fer.digobr.kidslingo.theme.AppPrimary
 import fer.digobr.kidslingo.theme.AppSecondary
+import fer.drumre.soundsync.R
 import fer.drumre.soundsync.ui.favourites.FavouritesViewModel
 import fer.drumre.soundsync.ui.home.model.Favourite
 import fer.drumre.soundsync.ui.view.HeaderRow
@@ -46,7 +47,7 @@ fun FavouritesScreen(
             onInitialClick = onInitialClick,
         )
         Text(
-            text = "Favourites",
+            text = stringResource(R.string.favourites),
             color = AppSecondary,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.h5,
@@ -55,8 +56,19 @@ fun FavouritesScreen(
             modifier = Modifier.height(4.dp).width(100.dp).background(Color.White).padding(8.dp),
         )
         uiState?.let {
-            if(it.favourites.isEmpty()) {
-                // TODO: Set empty state
+            if (it.favourites.isEmpty()) {
+                Column(
+                    modifier = Modifier.fillMaxSize().background(AppPrimary),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Text(
+                        text = stringResource(R.string.no_favourites).uppercase(),
+                        color = Color.White,
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.caption,
+                    )
+                }
             } else {
                 FavouritesList(
                     favouritesUiState = it,

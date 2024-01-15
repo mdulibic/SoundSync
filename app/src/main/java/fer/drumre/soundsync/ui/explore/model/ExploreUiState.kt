@@ -5,4 +5,5 @@ import fer.drumre.soundsync.ui.favourites.model.FavouritesUiState
 data class ExploreUiState(
     val favouritesUiState: FavouritesUiState,
     val geoTopTracksUiState: GeoTopTracksUiState,
+    val recommendationsFavorites: RecommendationsFavoritesUiState
 )

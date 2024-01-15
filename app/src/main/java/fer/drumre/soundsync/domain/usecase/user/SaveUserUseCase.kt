@@ -1,4 +1,4 @@
-package fer.drumre.soundsync.domain.usecase
+package fer.drumre.soundsync.domain.usecase.user
 
 import fer.drumre.soundsync.data.UserRepository
 import fer.drumre.soundsync.data.model.SaveUserRequest

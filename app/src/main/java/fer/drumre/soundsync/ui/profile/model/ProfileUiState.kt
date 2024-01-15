@@ -1,5 +1,9 @@
-package fer.drumre.soundsync.ui.home.model
+package fer.drumre.soundsync.ui.profile.model
+
+import fer.drumre.soundsync.data.model.ApiUser
 
 data class ProfileUiState(
-    val id: String,
+    val followingList: List<ApiUser>,
+    val nonFollowingList: List<ApiUser>,
+    val user: ApiUser,
 )

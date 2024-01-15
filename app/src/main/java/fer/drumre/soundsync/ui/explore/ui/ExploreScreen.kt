@@ -3,7 +3,6 @@ package fer.drumre.soundsync.ui.explore.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -18,10 +17,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import fer.digobr.kidslingo.theme.AppPrimary
 import fer.digobr.kidslingo.theme.AppSecondary
+import fer.drumre.soundsync.R
 import fer.drumre.soundsync.ui.explore.ExploreViewModel
 import fer.drumre.soundsync.ui.view.HeaderRow
 
@@ -35,7 +36,7 @@ fun ExploreScreen(
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .padding(bottom = 56.dp)
             .background(AppPrimary),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -45,7 +46,7 @@ fun ExploreScreen(
             onInitialClick = onInitialClick,
         )
         Text(
-            text = "Explore",
+            text = stringResource(R.string.explore),
             color = AppSecondary,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.h5,
@@ -63,6 +64,15 @@ fun ExploreScreen(
                     GeoTopTracks(
                         geoTopTracksUiState = it.geoTopTracksUiState,
                         favouritesUiState = it.favouritesUiState,
+                        onFavouriteClick = {
+                            exploreViewModel.onFavouriteClick(it)
+                        },
+                    )
+                }
+                item {
+                    RecommendationsFavourites(
+                        recommendationsFavoritesUiState = it.recommendationsFavorites,
+                        favoritesUiState = it.favouritesUiState,
                         onFavouriteClick = {
                             exploreViewModel.onFavouriteClick(it)
                         },

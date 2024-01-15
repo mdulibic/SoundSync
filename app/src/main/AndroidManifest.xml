@@ -24,9 +24,11 @@
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
         <activity
+            android:theme="@style/Theme.SoundSync.NoActionBar"
             android:name="fer.drumre.soundsync.MainActivity"
             android:exported="true" />
         <activity
+            android:theme="@style/Theme.SoundSync.NoActionBar"
             android:name=".ui.login.LoginActivity"
             android:exported="true">
             <intent-filter>

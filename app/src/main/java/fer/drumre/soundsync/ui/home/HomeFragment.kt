@@ -1,20 +1,17 @@
 package fer.drumre.soundsync.ui.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import com.facebook.login.LoginManager
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import dagger.hilt.android.AndroidEntryPoint
 import fer.digobr.kidslingo.theme.SoundSyncTheme
+import fer.drumre.soundsync.R
 import fer.drumre.soundsync.core.BaseFragment
 import fer.drumre.soundsync.databinding.FragmentHomeBinding
-import fer.drumre.soundsync.ui.login.LoginActivity
+import fer.drumre.soundsync.ui.profile.ProfileFragment
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
@@ -23,18 +20,6 @@ class HomeFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by viewModels()
-
-    private val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestEmail()
-        .build()
-
-    private val googleSignInClient: GoogleSignInClient by lazy {
-        GoogleSignIn.getClient(requireActivity(), gso)
-    }
-
-    private val logoutFb = {
-        LoginManager.getInstance().logOut()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,26 +37,23 @@ class HomeFragment : BaseFragment() {
                 HomeScreen(
                     homeViewModel = homeViewModel,
                     onInitialClick = {
-                        homeViewModel.signOut()
-                        signOut()
+                        showProfile()
                     },
                 )
             }
         }
     }
 
-    private fun signOut() {
-        googleSignInClient.signOut().addOnCompleteListener { status ->
-            if (status.isSuccessful) {
-                val intent = Intent(requireActivity(), LoginActivity::class.java)
-                startActivity(intent)
-                requireActivity().finish()
-            } else {
-                // Handle sign-out failure
-                // You might want to notify the user or log the error
-            }
-        }
-        logoutFb()
+    private fun showProfile() {
+        val profileFragment = ProfileFragment()
+        profileFragment.setStyle(
+            DialogFragment.STYLE_NORMAL,
+            R.style.FullScreenDialogTheme,
+        )
+        profileFragment.show(
+            parentFragmentManager,
+            ProfileFragment::class.java.simpleName,
+        )
     }
 
     override fun onResume() {

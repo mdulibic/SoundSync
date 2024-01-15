@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.facebook.CallbackManager
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.Auth
@@ -91,14 +90,11 @@ class LoginFragment : BaseFragment() {
     }
 
     private val signInWithFb = {
-        LoginManager.getInstance()
-            .logIn(requireActivity(), CallbackManager.Factory.create(), listOf())
-        loginViewModel.checkFbProfile()
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            loginViewModel.navigateToHome.collect {
-                navigateToHome()
-            }
+        if (loginViewModel.checkFbProfile()) {
+            navigateToHome()
+        } else {
+            LoginManager.getInstance()
+                .logIn(requireActivity(), CallbackManager.Factory.create(), listOf())
         }
     }
 
@@ -120,7 +116,7 @@ class LoginFragment : BaseFragment() {
                             email = account?.email ?: "",
                         ),
                     )
-                   // navigateToHome()
+                    navigateToHome()
                 }
             })
         } else {

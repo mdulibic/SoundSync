@@ -19,4 +19,6 @@ interface MusicRepository {
     fun fetchTop50Tracks(): Flow<List<ApiTrack>>
 
     fun getGeoTopTracks(country: String): Flow<List<ApiTrack>>
+
+    fun getRecommendationsFavorites(userId: String): Flow<Map<String, List<ApiTrack>>>
 }

@@ -8,11 +8,11 @@ import fer.drumre.soundsync.data.model.ApiFavourite
 import fer.drumre.soundsync.data.model.ApiGenre
 import fer.drumre.soundsync.data.model.ApiTrack
 import fer.drumre.soundsync.domain.SessionManager
-import fer.drumre.soundsync.domain.usecase.GetArtistsUseCase
+import fer.drumre.soundsync.domain.usecase.favourites.GetArtistsUseCase
 import fer.drumre.soundsync.domain.usecase.GetFavouritesUseCase
 import fer.drumre.soundsync.domain.usecase.GetGenresUseCase
-import fer.drumre.soundsync.domain.usecase.GetTop50TracksUseCase
-import fer.drumre.soundsync.domain.usecase.ManageFavouritesUseCase
+import fer.drumre.soundsync.domain.usecase.home.GetTop50TracksUseCase
+import fer.drumre.soundsync.domain.usecase.favourites.ManageFavouritesUseCase
 import fer.drumre.soundsync.ui.favourites.model.FavouritesUiState
 import fer.drumre.soundsync.ui.home.mapper.HomeMapper
 import fer.drumre.soundsync.ui.home.model.Favourite

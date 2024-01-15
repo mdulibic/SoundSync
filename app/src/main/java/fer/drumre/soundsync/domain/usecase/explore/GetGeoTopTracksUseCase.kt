@@ -1,4 +1,4 @@
-package fer.drumre.soundsync.domain.usecase
+package fer.drumre.soundsync.domain.usecase.explore
 
 import fer.drumre.soundsync.data.MusicRepository
 import fer.drumre.soundsync.data.model.ApiTrack

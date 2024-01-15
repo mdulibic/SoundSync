@@ -4,6 +4,8 @@ import fer.drumre.soundsync.data.model.ApiArtist
 import fer.drumre.soundsync.data.model.ApiFavourite
 import fer.drumre.soundsync.data.model.ApiGenre
 import fer.drumre.soundsync.data.model.ApiTrack
+import fer.drumre.soundsync.data.model.ApiUser
+import fer.drumre.soundsync.data.model.FollowRequest
 import fer.drumre.soundsync.data.model.SaveUserRequest
 import fer.drumre.soundsync.data.model.SaveUserResponse
 import fer.drumre.soundsync.ui.home.model.Favourite
@@ -40,7 +42,18 @@ interface SoundSyncApi {
     @GET("/music/{userId}/recommendations_favorites")
     suspend fun getRecommendationsFavorites(@Path("userId") userId: String): Map<String, List<ApiTrack>>
 
+    @GET("/users/{userId}/nonFollowers")
+    suspend fun getNonFollowers(@Path("userId") userId: String): List<ApiUser>
+
+    @GET("/users/{userId}/following")
+    suspend fun getFollowingUsers(@Path("userId") userId: String): List<ApiUser>
+
+    @GET("/users/{userId}")
+    suspend fun getUserById(@Path("userId") userId: String): ApiUser
+
+    @POST("/users/follow")
+    suspend fun followUser(@Body followRequest: FollowRequest)
+
     @GET("/music/{userId}/recommendations_followees")
     suspend fun getRecommendationsFollowees(@Path("userId") userId: String): Map<String, List<ApiFavourite>>
-
 }

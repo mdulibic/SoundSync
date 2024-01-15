@@ -65,6 +65,14 @@ class MusicRepositoryImpl @Inject constructor(private val api: SoundSyncApi) : M
         }
     }
 
+    override fun getRecommendationsFavorites(userId: String): Flow<Map<String, List<ApiTrack>>> = flow {
+        try {
+            emit(api.getRecommendationsFavorites(userId))
+        } catch (e: Exception) {
+            handleException(e, "getRecommendationsFavorites")
+        }
+    }
+
     private fun handleException(exception: Exception, method: String) {
         val errorMessage = exception.message ?: "Unknown error"
         val causeMessage = exception.cause?.message ?: "Unknown cause"

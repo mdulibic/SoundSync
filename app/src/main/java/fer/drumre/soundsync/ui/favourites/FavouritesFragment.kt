@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import fer.digobr.kidslingo.theme.SoundSyncTheme
+import fer.drumre.soundsync.R
 import fer.drumre.soundsync.core.BaseFragment
 import fer.drumre.soundsync.databinding.FragmentFavouritesBinding
 import fer.drumre.soundsync.ui.favourites.ui.FavouritesScreen
+import fer.drumre.soundsync.ui.profile.ProfileFragment
 
 @AndroidEntryPoint
 class FavouritesFragment : BaseFragment() {
@@ -35,7 +38,7 @@ class FavouritesFragment : BaseFragment() {
                 FavouritesScreen(
                     favouritesViewModel = favouritesViewModel,
                     onInitialClick = {
-                        favouritesViewModel.signOut()
+                        showProfile()
                     },
                     onFavouriteClick = {
                         favouritesViewModel.onFavouriteClick(it)
@@ -43,6 +46,18 @@ class FavouritesFragment : BaseFragment() {
                 )
             }
         }
+    }
+
+    private fun showProfile() {
+        val profileFragment = ProfileFragment()
+        profileFragment.setStyle(
+            DialogFragment.STYLE_NORMAL,
+            R.style.FullScreenDialogTheme,
+        )
+        profileFragment.show(
+            parentFragmentManager,
+            ProfileFragment::class.java.simpleName,
+        )
     }
 
     override fun onDestroyView() {

@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fer.drumre.soundsync.domain.SessionManager
 import fer.drumre.soundsync.domain.usecase.GetFavouritesUseCase
-import fer.drumre.soundsync.domain.usecase.ManageFavouritesUseCase
+import fer.drumre.soundsync.domain.usecase.favourites.ManageFavouritesUseCase
 import fer.drumre.soundsync.ui.favourites.model.FavouritesUiState
 import fer.drumre.soundsync.ui.home.model.Favourite
 import kotlinx.coroutines.Dispatchers

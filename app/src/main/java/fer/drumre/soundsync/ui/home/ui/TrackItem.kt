@@ -24,6 +24,7 @@ import fer.digobr.kidslingo.theme.AppSecondary
 import fer.drumre.soundsync.R
 import fer.drumre.soundsync.ui.home.model.Favourite
 import fer.drumre.soundsync.ui.home.model.TrackUiState
+import timber.log.Timber
 
 @Composable
 fun TrackItem(
@@ -31,6 +32,7 @@ fun TrackItem(
     trackUiState: TrackUiState,
     onFavouriteClick: (Favourite) -> Unit,
 ) {
+    Timber.d("TrackItem ${trackUiState.track.name} ${trackUiState.artistName}")
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,

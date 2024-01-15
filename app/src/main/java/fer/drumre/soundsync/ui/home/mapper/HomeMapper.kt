@@ -157,7 +157,7 @@ class HomeMapper @Inject constructor() {
 
             "Dječje" -> "Enter the whimsical world of Dječje glazba, where melodies are crafted to enchant the youngest of hearts. From playful tunes to educational anthems, this genre invites children to explore the joy of music and learning in a magical and imaginative way."
 
-            "Indijska Glazba" -> "Embark on a spiritual and sonic odyssey through the intricate melodies and rhythmic tapestries of Indijska Glazba. Rooted in ancient traditions, this genre invites you to experience the diverse"
+            "Indijska Glazba" -> "Embark on a spiritual and sonic odyssey through the intricate melodies and rhythmic tapestries of Indijska Glazba. Rooted in ancient traditions, this genre invites you to experience the diverse sounds of the India culture."
             "Latino" -> "Indulge in the vibrant rhythms and passionate melodies of Latino music, where the soulful spirit of Latin America comes alive. From the infectious beats of salsa to the sensual sway of tango, Latino music is a celebration of life, love, and the rich cultural tapestry of the region. Immerse yourself in the sizzling energy of mariachi trumpets, the rhythmic allure of reggaeton, and the timeless romance of bolero."
             else -> ""
         }

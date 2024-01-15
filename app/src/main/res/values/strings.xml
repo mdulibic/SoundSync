@@ -10,4 +10,20 @@
 
     <string name="facebook_app_id">341325738703060</string>
     <string name="facebook_client_token">ec03c07d239949fea2fed9aaf914a243</string>
+    <string name="favourites">Favourites</string>
+    <string name="based_on_your_location">Based on your location</string>
+    <string name="explore">Explore</string>
+    <string name="based_on_your_favourites">Based on your favourites</string>
+    <string name="tags_to_explore">Tags to Explore</string>
+    <string name="tag">"Tag: "</string>
+    <string name="featured_artist">"Featured artist:"</string>
+    <string name="no_favourites">No favourites</string>
+    <string name="because_you_liked">Because you liked</string>
+    <string name="top_chart">Top chart</string>
+    <string name="name">Name:</string>
+    <string name="surname">Surname:</string>
+    <string name="email">Email:</string>
+    <string name="following">Following:</string>
+    <string name="non_following">Non-Following:</string>
+    <string name="log_out">Log out</string>
 </resources>

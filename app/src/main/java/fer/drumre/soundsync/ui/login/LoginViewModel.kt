@@ -7,7 +7,7 @@ import com.facebook.ProfileTracker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fer.drumre.soundsync.data.model.SaveUserRequest
 import fer.drumre.soundsync.domain.SessionManager
-import fer.drumre.soundsync.domain.usecase.SaveUserUseCase
+import fer.drumre.soundsync.domain.usecase.user.SaveUserUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
@@ -35,25 +35,27 @@ class LoginViewModel @Inject constructor(
                             email = "${currentProfile.firstName?.lowercase()}.${currentProfile.lastName?.lowercase()}@gmail.com",
                         ),
                     )
-                    navigateToHome()
                 }
             }
         }
 
-    fun checkFbProfile() {
-        Profile.getCurrentProfile()?.apply {
+    fun checkFbProfile(): Boolean {
+        return Profile.getCurrentProfile()?.let {
             saveUser(
                 userInfo = SaveUserRequest(
-                    name = firstName.toString(),
-                    surname = lastName.toString(),
-                    email = "${firstName?.lowercase()}.${lastName?.lowercase()}@gmail.com",
+                    name = it.firstName.toString(),
+                    surname = it.lastName.toString(),
+                    email = "${it.firstName?.lowercase()}.${it.lastName?.lowercase()}@gmail.com",
                 ),
             )
             navigateToHome()
+            true
+        } ?: run {
+            false
         }
     }
 
-    fun navigateToHome() {
+    private fun navigateToHome() {
         viewModelScope.launch {
             _navigateToHome.emit(Unit)
         }
@@ -72,37 +74,4 @@ class LoginViewModel @Inject constructor(
         profileTracker.stopTracking()
         super.onCleared()
     }
-
-//    fun handleFacebookLoginResult(result: LoginResult) {
-//        val request = GraphRequest.newMeRequest(
-//            result.accessToken,
-//        ) { jsonObject, response ->
-//            if (jsonObject != null) {
-//                val userId = jsonObject.getString("id")
-//                val userName = jsonObject.getString("name")
-//                val email = jsonObject.getString("email")
-//
-//                val fullName = userName.split(" ")
-//                val firstName = fullName.firstOrNull() ?: ""
-//                val lastName = fullName.drop(1).joinToString(separator = " ")
-//
-//                Timber.d("First Name: $firstName, Last Name: $lastName")
-//                saveUser(
-//                    userInfo = UserInfo(
-//                        name = firstName,
-//                        surname = lastName,
-//                        email = email,
-//                    ),
-//                )
-//                viewModelScope.launch {
-//                    _navigateToHome.emit(Unit)
-//                }
-//            }
-//        }
-//
-//        val parameters = Bundle()
-//        parameters.putString("fields", "id,name,email")
-//        request.parameters = parameters
-//        request.executeAsync()
-//    }
 }
